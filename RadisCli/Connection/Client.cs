@@ -28,7 +28,7 @@ public class Client
 
     public string Send(string command)
     {
-        string respData = Serializer.SerializeArray([command]);
+        string respData = Serializer.SerializeRequest(command);
 
         socket.Send(Encoding.UTF8.GetBytes(respData));
 

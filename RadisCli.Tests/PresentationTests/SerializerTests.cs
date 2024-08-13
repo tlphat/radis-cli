@@ -22,7 +22,14 @@ public class SerializerTests
     [Fact]
     public void Serializer_GivenArray_ReturnsResp()
     {
-        string actual = Serializer.SerializeArray(new List<string>{"GET", "x", "y"});
-        actual.Should().Be("*3\r\n$3\r\nGET\r\n$1\r\nx\r\n$1\r\ny\r\n");
+        string actual = Serializer.SerializeArray(new List<string>{"SET", "x", "y"});
+        actual.Should().Be("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\ny\r\n");
+    }
+
+    [Fact]
+    public void Serializer_GivenRequestString_ReturnsResp()
+    {
+        string actual = Serializer.SerializeRequest("SET x y");
+        actual.Should().Be("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\ny\r\n");
     }
 }

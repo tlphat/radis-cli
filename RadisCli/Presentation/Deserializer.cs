@@ -13,6 +13,12 @@ public class Deserializer
             return "(nil)";
         }
 
+        // Parse error
+        if (header.StartsWith('-'))
+        {
+            return string.Format("(error) {0}", header[1..]);
+        }
+
         // Parse simple string
         if (header.StartsWith('+'))
         {
