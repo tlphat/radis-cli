@@ -4,20 +4,18 @@ namespace RadisCli.Presentation;
 
 public class Serializer
 {
-    public static string SerializeString(string data)
+    private const char ARRAY_PREFIX = '*';
+    private const char BULK_STRING_PREFIX = '$';
+
+    public static string SerializeRequest(string request)
     {
-        return string.Format("+{0}\r\n", data);
+        string[] arrayData = Array.FindAll(request.Split(' '), segment => segment.Trim().Length > 0);
+        return SerializeArray([.. arrayData]);
     }
 
-    public static string SerializeBulkString(string data)
+    private static string SerializeArray(List<string> data)
     {
-        int byteCount = Encoding.ASCII.GetByteCount(data);
-        return string.Format("${0}\r\n{1}\r\n", byteCount, data);
-    }
-
-    public static string SerializeArray(List<string> data)
-    {
-        StringBuilder stringBuilder = new(string.Format("*{0}\r\n", data.Count));
+        StringBuilder stringBuilder = new(string.Format("{0}{1}\r\n", ARRAY_PREFIX, data.Count));
         foreach (string bulk in data)
         {
             stringBuilder.Append(SerializeBulkString(bulk));
@@ -25,9 +23,9 @@ public class Serializer
         return stringBuilder.ToString();
     }
 
-    public static string SerializeRequest(string request)
+    private static string SerializeBulkString(string data)
     {
-        string[] arrayData = Array.FindAll(request.Split(' '), segment => segment.Trim().Length > 0);
-        return SerializeArray([.. arrayData]);
+        int byteCount = Encoding.ASCII.GetByteCount(data);
+        return string.Format("{0}{1}\r\n{2}\r\n", BULK_STRING_PREFIX, byteCount, data);
     }
 }

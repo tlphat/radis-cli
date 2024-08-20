@@ -2,37 +2,54 @@
 
 public class Deserializer
 {
+    private const char ERROR_PREFIX = '-';
+    private const char SIMPLE_STRING_PREFIX = '+';
+    private const string NULL = "_";
+    private const string NULL_BULK_STRING = "$-1";
+
     public static string Deserialize(string data)
     {
-        StringReader reader = new StringReader(data);
+        StringReader reader = new(data);
         string header = ReadLineOrThrow(reader, new ArgumentException("Null header"));
 
-        // Parse null and null bulk string
-        if ("_".Equals(header) || "$-1".Equals(header))
+        if (IsNull(header))
         {
-            return "(nil)";
+            return Output.Null();
         }
 
-        // Parse error
-        if (header.StartsWith('-'))
+        if (IsError(header))
         {
-            return string.Format("(error) {0}", header[1..]);
+            return Output.Error(header[1..]);
         }
 
-        // Parse simple string
-        if (header.StartsWith('+'))
+        if (IsSimpleString(header))
         {
-            return header[1..];
+            return Output.String(header[1..]);
         }
 
         string body = ReadLineOrThrow(reader, new ArgumentException("Null body"));
         reader.Close();
 
-        return body;
+        return Output.String(body);
     }
 
     private static string ReadLineOrThrow(StringReader reader, Exception exception)
     {
         return reader.ReadLine() ?? throw exception;
+    }
+
+    private static bool IsNull(string header)
+    {
+        return NULL.Equals(header) || NULL_BULK_STRING.Equals(header);
+    }
+
+    private static bool IsError(string header)
+    {
+        return header.StartsWith(ERROR_PREFIX);
+    }
+
+    private static bool IsSimpleString(string header)
+    {
+        return header.StartsWith(SIMPLE_STRING_PREFIX);
     }
 }
