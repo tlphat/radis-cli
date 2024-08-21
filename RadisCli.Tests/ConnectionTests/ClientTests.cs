@@ -1,4 +1,5 @@
-﻿using FluentAssertions; using RadisCli.Connection; 
+﻿using FluentAssertions;
+using RadisCli.Connection;
 namespace RadisCli.Tests.ConnectionTests;
 
 public class ClientTests

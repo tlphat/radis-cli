@@ -1,6 +1,4 @@
-﻿
-
-namespace RadisCli.Presentation;
+﻿namespace RadisCli.Presentation;
 
 public class Output
 {
