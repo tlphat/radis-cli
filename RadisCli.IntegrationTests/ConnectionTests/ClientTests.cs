@@ -45,4 +45,18 @@ public class ClientTests
 
         actual.Should().Be("(nil)");
     }
+
+    [Fact]
+    public void Client_GivenSetKey_ReturnsOk()
+    {
+        Client client = new("127.0.0.1", 6379);
+        client.Connect();
+
+        string request = "SET y 11";
+        string actual = client.Send(request);
+
+        client.Close();
+
+        actual.Should().Be("OK");
+    }
 }
