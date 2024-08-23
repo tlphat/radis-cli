@@ -24,7 +24,7 @@ public class ClientTests
         Client client = new("127.0.0.1", 6379);
         client.Connect();
 
-        string request = "GET x";
+        string request = "GET a";
         string actual = client.Send(request);
 
         client.Close();
@@ -38,7 +38,7 @@ public class ClientTests
         Client client = new("127.0.0.1", 6379);
         client.Connect();
 
-        string request = "GET  x";
+        string request = "GET  a";
         string actual = client.Send(request);
 
         client.Close();
@@ -52,9 +52,11 @@ public class ClientTests
         Client client = new("127.0.0.1", 6379);
         client.Connect();
 
-        string request = "SET y 11";
+        string request = "SET b 11";
         string actual = client.Send(request);
 
+        // Clean up
+        client.Send("DEL b");
         client.Close();
 
         actual.Should().Be("OK");
@@ -65,12 +67,30 @@ public class ClientTests
     {
         Client client = new("127.0.0.1", 6379);
         client.Connect();
+        client.Send("SET c 11");
 
-        string request = "DEL y";
+        string request = "DEL c";
         string actual = client.Send(request);
 
         client.Close();
 
         actual.Should().Be("(integer) 1");
+    }
+
+    [Fact]
+    public void Client_GivenLeftPushKey_ReturnsNumberOfElementsInList()
+    {
+        Client client = new("127.0.0.1", 6379);
+        client.Connect();
+        client.Send("LPUSH d 18");
+
+        string request = "LPUSH d 18";
+        string actual = client.Send(request);
+        
+        // Clean up
+        client.Send("DEL d");
+        client.Close();
+
+        actual.Should().Be("(integer) 2");
     }
 }
