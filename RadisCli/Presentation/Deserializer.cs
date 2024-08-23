@@ -3,6 +3,7 @@
 public class Deserializer
 {
     private const char ERROR_PREFIX = '-';
+    private const char INTEGER_PREFIX = ':';
     private const char SIMPLE_STRING_PREFIX = '+';
     private const string NULL = "_";
     private const string NULL_BULK_STRING = "$-1";
@@ -20,6 +21,11 @@ public class Deserializer
         if (IsError(header))
         {
             return Output.Error(header[1..]);
+        }
+
+        if (IsInteger(header))
+        {
+            return Output.Integer(header[1..]);
         }
 
         if (IsSimpleString(header))
@@ -46,6 +52,11 @@ public class Deserializer
     private static bool IsError(string header)
     {
         return header.StartsWith(ERROR_PREFIX);
+    }
+
+    private static bool IsInteger(string header)
+    {
+        return header.StartsWith(INTEGER_PREFIX);
     }
 
     private static bool IsSimpleString(string header)

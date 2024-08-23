@@ -59,4 +59,18 @@ public class ClientTests
 
         actual.Should().Be("OK");
     }
+
+    [Fact]
+    public void Client_GivenDeleteKey_ReturnsNumberOfDeletedElements()
+    {
+        Client client = new("127.0.0.1", 6379);
+        client.Connect();
+
+        string request = "DEL y";
+        string actual = client.Send(request);
+
+        client.Close();
+
+        actual.Should().Be("(integer) 1");
+    }
 }

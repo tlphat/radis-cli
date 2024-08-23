@@ -1,4 +1,5 @@
-﻿namespace RadisCli.Presentation;
+﻿
+namespace RadisCli.Presentation;
 
 public class Output
 {
@@ -15,5 +16,10 @@ public class Output
     public static string String(string data)
     {
         return data;
+    }
+
+    internal static string Integer(string data)
+    {
+        return string.Format("(integer) {0}", data);
     }
 }
