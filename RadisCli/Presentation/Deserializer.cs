@@ -13,8 +13,6 @@ public class Deserializer
         StringReader reader = new(data);
         string header = ReadLineOrThrow(reader, new ArgumentException("Null header"));
 
-        Console.WriteLine(header);
-
         if (IsNull(header))
         {
             return Output.Null();
