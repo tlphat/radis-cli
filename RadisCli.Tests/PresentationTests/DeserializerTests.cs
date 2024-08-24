@@ -9,7 +9,7 @@ public class DeserializerTests
     public void Deserializer_GivenBulkStringResp_ReturnsString()
     {
         string actual = Deserializer.Deserialize("$5\r\nhello\r\n");
-        actual.Should().Be("hello");
+        actual.Should().Be("\"hello\"");
     }
 
     [Fact]

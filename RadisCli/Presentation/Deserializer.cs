@@ -13,6 +13,8 @@ public class Deserializer
         StringReader reader = new(data);
         string header = ReadLineOrThrow(reader, new ArgumentException("Null header"));
 
+        Console.WriteLine(header);
+
         if (IsNull(header))
         {
             return Output.Null();
@@ -36,7 +38,7 @@ public class Deserializer
         string body = ReadLineOrThrow(reader, new ArgumentException("Null body"));
         reader.Close();
 
-        return Output.String(body);
+        return Output.StringInDoubleQuotes(body);
     }
 
     private static string ReadLineOrThrow(StringReader reader, Exception exception)

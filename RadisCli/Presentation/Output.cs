@@ -1,4 +1,5 @@
 ﻿
+
 namespace RadisCli.Presentation;
 
 public class Output
@@ -18,8 +19,13 @@ public class Output
         return data;
     }
 
-    internal static string Integer(string data)
+    public static string Integer(string data)
     {
         return string.Format("(integer) {0}", data);
+    }
+
+    public static string StringInDoubleQuotes(string data)
+    {
+        return string.Format("\"{0}\"", data);
     }
 }
