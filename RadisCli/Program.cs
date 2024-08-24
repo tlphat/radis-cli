@@ -1,11 +1,14 @@
 ﻿using RadisCli.Connection;
 using RadisCli.IO;
 using RadisCli.Parser;
+using RadisCli.Presentation;
 
 namespace RadisCli;
 
 class Program
 {
+    private const string HELP_CONFIG_PATH = "Config/help.txt";
+
     static void Main(string[] args)
     {
         Arguments arguments = ArgumentParser.Parse(args);
@@ -13,12 +16,22 @@ class Program
         Client client = new(arguments.Host, arguments.Port);
         client.Connect();
 
+        HelpOutput helpOutput = new(HELP_CONFIG_PATH);
+        helpOutput.ParseConfig();
+
         Prompter prompter = new(arguments.Host, arguments.Port);
         Console.Write(prompter.Prompt());
         string? command = Console.ReadLine();
         while (command != null && !"quit".Equals(command.ToLower()))
         {
-            if (!"".Equals(command.Trim()))
+            command = command.Trim();
+
+            if ("help".Equals(command.ToLower()))
+            {
+                string output = helpOutput.HelpText();
+                Console.Write(output);
+            }
+            else if (!"".Equals(command))
             {
                 string output = client.Send(command);
                 Console.WriteLine(output);
