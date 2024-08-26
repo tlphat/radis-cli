@@ -1,4 +1,0 @@
-To get help about Redis commands type:
-        "help @<group>" to get a list of commands in <group>
-        "help <command>" for help on <command>
-        "quit" to exit

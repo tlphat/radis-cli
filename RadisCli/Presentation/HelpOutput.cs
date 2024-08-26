@@ -1,27 +1,31 @@
-﻿using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace RadisCli.Presentation;
 
 public class HelpOutput(string configFilePath)
 {
     private readonly string configFilePath = configFilePath;
-    private string helpText = "";
+    private HelpConfig helpConfig = new();
 
     public void ParseConfig()
     {
         StreamReader reader = new(configFilePath);
-        StringBuilder stringBuilder = new ();
-        string? line = reader.ReadLine();
-        while (line != null)
-        {
-            stringBuilder.AppendLine(line);
-            line = reader.ReadLine();
-        }
-        helpText = stringBuilder.ToString();
+        string json = reader.ReadToEnd();
+        helpConfig = JsonConvert.DeserializeObject<HelpConfig>(json) ?? new();
     }
 
     public string HelpText()
     {
-        return helpText;
+        return helpConfig.Global;
+    }
+
+    private record HelpConfig
+    {
+        public string Global;
+
+        public HelpConfig()
+        {
+            this.Global = "";
+        }
     }
 }

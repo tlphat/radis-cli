@@ -7,7 +7,7 @@ namespace RadisCli;
 
 class Program
 {
-    private const string HELP_CONFIG_PATH = "Config/help.txt";
+    private const string HELP_CONFIG_PATH = "Config/help-output.json";
 
     static void Main(string[] args)
     {
@@ -29,7 +29,7 @@ class Program
             if ("help".Equals(command.ToLower()))
             {
                 string output = helpOutput.HelpText();
-                Console.Write(output);
+                Console.WriteLine(output);
             }
             else if (!"".Equals(command))
             {

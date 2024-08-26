@@ -11,6 +11,10 @@
     <Folder Include="Config\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /y /s /i $(ProjectDir)Config  $(ProjectDir)$(OutDir)Config" />
   </Target>
