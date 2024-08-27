@@ -1,3 +1,4 @@
 {
-  "Global": "To get help about Redis commands type:\n\t\"help @<group>\" to get a list of commands in <group>\n\t\"help <command>\" for help on <command>\n\t\"quit\" to exit"
+  "Global": "To get help about Redis commands type:\n\t\"help @<group>\" to get a list of commands in <group>\n\t\"help <command>\" for help on <command>\n\t\"quit\" to exit",
+  "Get": "\n  GET key\n  summary: Returns the string value of a key.\n  since: 1.0.0\n  group: string\n"
 }

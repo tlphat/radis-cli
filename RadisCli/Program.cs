@@ -1,7 +1,7 @@
 ﻿using RadisCli.Connection;
 using RadisCli.IO;
 using RadisCli.Parser;
-using RadisCli.Presentation;
+using RadisCli.Presentation.Help;
 
 namespace RadisCli;
 
@@ -22,14 +22,22 @@ class Program
         Prompter prompter = new(arguments.Host, arguments.Port);
         Console.Write(prompter.Prompt());
         string? command = Console.ReadLine();
-        while (command != null && !"quit".Equals(command.ToLower()))
+        while (command != null && !"quit".Equals(command.Trim().ToLower()))
         {
             command = command.Trim();
 
-            if ("help".Equals(command.ToLower()))
+            if (command.ToLower().StartsWith("help"))
             {
-                string output = helpOutput.HelpText();
-                Console.WriteLine(output);
+                Command commandType = HelpCommandParser.Parse(command);
+                // TODO: use hash map to store mapping between command type and output text
+                if (commandType == Command.GET)
+                {
+                    Console.WriteLine(helpOutput.HelpGetText());
+                }
+                else
+                {
+                    Console.WriteLine(helpOutput.HelpText());
+                }
             }
             else if (!"".Equals(command))
             {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace RadisCli.Presentation;
+namespace RadisCli.Presentation.Help;
 
 public class HelpOutput(string configFilePath)
 {
@@ -19,13 +19,20 @@ public class HelpOutput(string configFilePath)
         return helpConfig.Global;
     }
 
+    public string HelpGetText()
+    {
+        return helpConfig.Get;
+    }
+
     private record HelpConfig
     {
         public string Global;
+        public string Get;
 
         public HelpConfig()
         {
-            this.Global = "";
+            Global = "";
+            Get = "";
         }
     }
 }
