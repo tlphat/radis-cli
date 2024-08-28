@@ -16,8 +16,7 @@ class Program
         Client client = new(arguments.Host, arguments.Port);
         client.Connect();
 
-        HelpOutput helpOutput = new(HELP_CONFIG_PATH);
-        helpOutput.ParseConfig();
+        HelpOutput helpOutput = LoadHelpConfig();
 
         Prompter prompter = new(arguments.Host, arguments.Port);
         Console.Write(prompter.Prompt());
@@ -50,5 +49,14 @@ class Program
         }
 
         client.Close();
+    }
+
+    private static HelpOutput LoadHelpConfig()
+    {
+        StreamReader reader = new(HELP_CONFIG_PATH);
+        HelpOutput helpOutput = new(reader);
+        helpOutput.ParseConfig();
+        reader.Close();
+        return helpOutput;
     }
 }

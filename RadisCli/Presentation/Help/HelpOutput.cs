@@ -2,14 +2,13 @@
 
 namespace RadisCli.Presentation.Help;
 
-public class HelpOutput(string configFilePath)
+public class HelpOutput(StreamReader reader)
 {
-    private readonly string configFilePath = configFilePath;
+    private readonly StreamReader reader = reader;
     private HelpConfig helpConfig = new();
 
     public void ParseConfig()
     {
-        StreamReader reader = new(configFilePath);
         string json = reader.ReadToEnd();
         helpConfig = JsonConvert.DeserializeObject<HelpConfig>(json) ?? new();
     }
@@ -22,6 +21,15 @@ public class HelpOutput(string configFilePath)
     public string HelpGetText()
     {
         return helpConfig.Get;
+    }
+
+    public string PrintHelpOfCommand(Command command)
+    {
+        return command switch
+        {
+            Command.GET => helpConfig.Get,
+            _ => helpConfig.Global,
+        };
     }
 
     private record HelpConfig
