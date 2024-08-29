@@ -21,6 +21,10 @@ public class HelpCommandParser
             return Command.GET;
         }
 
+        if ("set".Equals(tokens[1].ToLower())) { 
+            return Command.SET; 
+        }
+
         throw new ArgumentException("help does not support the given command", tokens[1]);
     }
 }

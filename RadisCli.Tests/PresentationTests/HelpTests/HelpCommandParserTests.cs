@@ -32,4 +32,11 @@ public class HelpCommandParserTests
         Command actual = HelpCommandParser.Parse("  help    get   ");
         actual.Should().Be(Command.GET);
     }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpSetCommand_ReturnsSetType()
+    {
+        Command actual = HelpCommandParser.Parse("help set");
+        actual.Should().Be(Command.SET);
+    }
 }

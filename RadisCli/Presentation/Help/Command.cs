@@ -4,4 +4,5 @@ public enum Command
 {
     GLOBAL,
     GET,
+    SET,
 }

@@ -31,6 +31,19 @@ public class HelpOutputTests
         actual.Should().Be("get help");
     }
 
+    [Fact]
+    public void HelpOutput_GivenSetCommand_ReturnsSetHelpText()
+    {
+        StreamReader reader = new StreamReaderMock();
+        HelpOutput helpOutput = new(reader);
+        helpOutput.ParseConfig();
+        reader.Close();
+
+        string actual = helpOutput.PrintHelpOfCommand(Command.SET);
+
+        actual.Should().Be("set help");
+    }
+
     private class StreamReaderMock : StreamReader
     {
         public StreamReaderMock() : base(Stream.Null)
@@ -41,7 +54,8 @@ public class HelpOutputTests
         {
             return @"{
                 ""Global"": ""global help"",
-                ""Get"": ""get help""
+                ""Get"": ""get help"",
+                ""Set"": ""set help""
             }";
         }
     }

@@ -28,15 +28,8 @@ class Program
             if (command.ToLower().StartsWith("help"))
             {
                 Command commandType = HelpCommandParser.Parse(command);
-                // TODO: use hash map to store mapping between command type and output text
-                if (commandType == Command.GET)
-                {
-                    Console.WriteLine(helpOutput.HelpGetText());
-                }
-                else
-                {
-                    Console.WriteLine(helpOutput.HelpText());
-                }
+                string output = helpOutput.PrintHelpOfCommand(commandType);
+                Console.WriteLine(output);
             }
             else if (!"".Equals(command))
             {

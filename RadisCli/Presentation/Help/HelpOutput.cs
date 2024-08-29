@@ -28,19 +28,15 @@ public class HelpOutput(StreamReader reader)
         return command switch
         {
             Command.GET => helpConfig.Get,
+            Command.SET => helpConfig.Set,
             _ => helpConfig.Global,
         };
     }
 
     private record HelpConfig
     {
-        public string Global;
-        public string Get;
-
-        public HelpConfig()
-        {
-            Global = "";
-            Get = "";
-        }
+        public string Global = "";
+        public string Get = "";
+        public string Set = "";
     }
 }
