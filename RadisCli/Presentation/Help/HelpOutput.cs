@@ -29,6 +29,11 @@ public class HelpOutput(StreamReader reader)
         {
             Command.GET => helpConfig.Get,
             Command.SET => helpConfig.Set,
+            Command.DEL => helpConfig.Del,
+            Command.LPUSH => helpConfig.LPush,
+            Command.RPUSH => helpConfig.RPush,
+            Command.LPOP => helpConfig.LPop,
+            Command.RPOP => helpConfig.RPop,
             _ => helpConfig.Global,
         };
     }
@@ -38,5 +43,10 @@ public class HelpOutput(StreamReader reader)
         public string Global = "";
         public string Get = "";
         public string Set = "";
+        public string Del = "";
+        public string LPush = "";
+        public string RPush = "";
+        public string LPop = "";
+        public string RPop = "";
     }
 }

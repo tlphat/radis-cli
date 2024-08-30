@@ -2,6 +2,17 @@ namespace RadisCli.Presentation.Help;
 
 public class HelpCommandParser
 {
+    private static readonly Dictionary<string, Command> commandMapping = new() 
+    {
+        { "get", Command.GET },
+        { "set", Command.SET },
+        { "del", Command.DEL },
+        { "lpush", Command.LPUSH },
+        { "lpop", Command.LPOP },
+        { "rpush", Command.RPUSH },
+        { "rpop", Command.RPOP },
+    };
+
     public static Command Parse(string command)
     {
         string[] tokens = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -16,15 +27,10 @@ public class HelpCommandParser
             return Command.GLOBAL;
         }
 
-        if ("get".Equals(tokens[1].ToLower()))
+        if (!commandMapping.TryGetValue(tokens[1].ToLower(), out Command commandType))
         {
-            return Command.GET;
+            throw new ArgumentException("help does not support the given command", tokens[1]);
         }
-
-        if ("set".Equals(tokens[1].ToLower())) { 
-            return Command.SET; 
-        }
-
-        throw new ArgumentException("help does not support the given command", tokens[1]);
+        return commandType;
     }
 }

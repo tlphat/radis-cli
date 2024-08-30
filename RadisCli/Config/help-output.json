@@ -1,5 +1,10 @@
 {
   "Global": "To get help about Redis commands type:\n\t\"help @<group>\" to get a list of commands in <group>\n\t\"help <command>\" for help on <command>\n\t\"quit\" to exit",
   "Get": "\n  GET key\n  summary: Returns the string value of a key.\n  since: 1.0.0\n  group: string\n",
-  "Set": "\n  SET key value [NX | XX] [GET] [EX seconds | PX milliseconds | EXAT unix-time-seconds | PXAT unix-time-milliseconds | KEEPTTL]\n  summary: Sets the string value of a key, ignoring its type. The key is created if it doesn't exist.\n  since: 1.0.0\n  group: string\n"
+  "Set": "\n  SET key value [NX | XX] [GET] [EX seconds | PX milliseconds | EXAT unix-time-seconds | PXAT unix-time-milliseconds | KEEPTTL]\n  summary: Sets the string value of a key, ignoring its type. The key is created if it doesn't exist.\n  since: 1.0.0\n  group: string\n",
+  "Del": "\n  DEL key [key ...]\n  summary: Deletes one or more keys.\n  since: 1.0.0\n  group: generic\n",
+  "LPush": "\n  LPUSH key element [element ...]\n  summary: Prepends one or more elements to a list. Creates the key if it doesn't exist.\n  since: 1.0.0\n  group: list\n",
+  "LPop": "\n  LPOP key [count]\n  summary: Returns the first elements in a list after removing it. Deletes the list if the last element was popped.\n  since: 1.0.0\n  group: list\n",
+  "RPush": "\n  RPUSH key element [element ...]\n  summary: Appends one or more elements to a list. Creates the key if it doesn't exist.\n  since: 1.0.0\n  group: list\n",
+  "RPop": "\n  RPOP key [count]\n  summary: Returns and removes the last elements of a list. Deletes the list if the last element was popped.\n  since: 1.0.0\n  group: list\n"
 }

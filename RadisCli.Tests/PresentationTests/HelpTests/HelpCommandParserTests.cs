@@ -39,4 +39,39 @@ public class HelpCommandParserTests
         Command actual = HelpCommandParser.Parse("help set");
         actual.Should().Be(Command.SET);
     }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpDelCommand_ReturnsDelType()
+    {
+        Command actual = HelpCommandParser.Parse("HELP DEL");
+        actual.Should().Be(Command.DEL);
+    }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpLPushCommand_ReturnsLPushType()
+    {
+        Command actual = HelpCommandParser.Parse("help lpush");
+        actual.Should().Be(Command.LPUSH);
+    }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpLPopCommand_ReturnsLPopType()
+    {
+        Command actual = HelpCommandParser.Parse("help lpop");
+        actual.Should().Be(Command.LPOP);
+    }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpRPushCommand_ReturnsRPushType()
+    {
+        Command actual = HelpCommandParser.Parse("help rpush");
+        actual.Should().Be(Command.RPUSH);
+    }
+
+    [Fact]
+    public void HelpCommandParser_GivenHelpRPopCommand_ReturnsRPopType()
+    {
+        Command actual = HelpCommandParser.Parse("help rpop");
+        actual.Should().Be(Command.RPOP);
+    }
 }
