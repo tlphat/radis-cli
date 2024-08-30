@@ -27,7 +27,7 @@ class Program
         {
             command = command.Trim();
 
-            if (command.ToLower().StartsWith(HELP_COMMAND))
+            if (command.StartsWith(HELP_COMMAND, StringComparison.CurrentCultureIgnoreCase))
             {
                 Command commandType = HelpCommandParser.Parse(command);
                 string output = helpOutput.PrintHelpOfCommand(commandType);
