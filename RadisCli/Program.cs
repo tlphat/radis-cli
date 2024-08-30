@@ -8,6 +8,8 @@ namespace RadisCli;
 class Program
 {
     private const string HELP_CONFIG_PATH = "Config/help-output.json";
+    private const string QUIT_COMMAND = "quit";
+    private const string HELP_COMMAND = "help";
 
     static void Main(string[] args)
     {
@@ -21,11 +23,11 @@ class Program
         Prompter prompter = new(arguments.Host, arguments.Port);
         Console.Write(prompter.Prompt());
         string? command = Console.ReadLine();
-        while (command != null && !"quit".Equals(command.Trim().ToLower()))
+        while (command != null && !QUIT_COMMAND.Equals(command.Trim().ToLower()))
         {
             command = command.Trim();
 
-            if (command.ToLower().StartsWith("help"))
+            if (command.ToLower().StartsWith(HELP_COMMAND))
             {
                 Command commandType = HelpCommandParser.Parse(command);
                 string output = helpOutput.PrintHelpOfCommand(commandType);
